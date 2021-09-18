@@ -1,0 +1,46 @@
+Use Amazon Linux 2 and install nginx, ansible & git.
+amazon-linux-extras install epel
+yum update -y
+yum install nginx -y
+
+Run inspector scanning and check the CVE after 15 min.
+
+Install following on same server:
+yum install ansible -y
+yum install git -y
+
+sudo amazon-linux-extras install ansible2
+
+git clone https://github.com/hlta/cis-amazon-linux-2.git /root/roles/cis-amazon-linux-2 -> LOst SSH access after applying the role.
+
+Try https://github.com/QLPD/ansible-cis-amazon-linux-2
+
+nano playbook.yaml
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  become: yes
+  roles:
+    - cis-amazon-linux-2
+
+ansible-playbook playbook.yaml
+
+Run the inspector scanning again.
+
+First run the inspector and take the report.
+Install git
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  become: yes
+  roles:
+    - cis-amazon-linux-2
+
+
+https://github.com/mavrick202/cis-amazon-linux-2
+git clone https://github.com/hlta/cis-amazon-linux-2.git /root/roles/cis-amazon-linux-2
+ansible-playbook playbook.yaml
+
+It will take 10 min to apply. Reboot when done and perform inspector scan again
